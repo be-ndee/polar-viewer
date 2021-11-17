@@ -14,6 +14,6 @@ import "chart.js"
 import "leaflet"
 
 Rails.start()
-Turbolinks.start()
+//Turbolinks.start()
 ActiveStorage.start()
 
