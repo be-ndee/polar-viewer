@@ -1,5 +1,3 @@
-require "#{File.dirname(__FILE__)}/../../lib/polar/lib/polar_data_parser"
-
 class TrainingController < ApplicationController
   def get_directory()
     return "#{File.dirname(__FILE__)}/../../synch/U/0"
