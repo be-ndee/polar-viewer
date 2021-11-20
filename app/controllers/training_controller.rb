@@ -46,18 +46,20 @@ class TrainingController < ApplicationController
   end
 
   def details
-    @date = params[:date]
     time = params[:time]
+    date = params[:date]
 
-    date_is_valid = /^\d{8}$/ =~ @date
-    time_is_valid = /^\d{6}$/ =~ time
+    @training = TrainingModel.new(date, time)
+
+    date_is_valid = /^\d{8}$/ =~ @training.date
+    time_is_valid = /^\d{6}$/ =~ @training.time
 
     if !date_is_valid || !time_is_valid
       render status: :bad_request
       return false
     end
 
-    directory = self.get_time_directory(@date, time)
+    directory = self.get_time_directory(@training.date, @training.time)
 
     if !Dir.exists?(directory)
       render status: :not_found
