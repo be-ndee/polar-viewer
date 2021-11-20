@@ -20,8 +20,8 @@
   <h2>Pace</h2>
   <% if @exercise_stats.speed %>
     <p>
-    &Oslash; <%= "%3.2f" % @exercise_stats.speed.average %> km/h;
-    max <%= "%3.2f" % @exercise_stats.speed.maximum %> km/h
+    &Oslash; <%= print_pace @exercise_stats.speed.average %> km/h;
+    max <%= print_pace % @exercise_stats.speed.maximum %> km/h
     </p>
   <% end %>
   <canvas id="pace_chart" width="800" height="300"></canvas>
