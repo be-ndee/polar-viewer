@@ -1,11 +1,24 @@
-<% if @dates %>
-  <ul>
-    <% @dates.each do |date| %>
-      <li>
-        <%= link_to date, training_times_path(date) %>
-      </li>
+<h1>Training dates</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="w-100" scope="col">Date</th>
+      <th class="w-auto">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @dates %>
+      <% @dates.each do |date| %>
+        <tr>
+          <td><%= date%></td>
+          <td><a href="<%= training_times_path(date) %>">details</a></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="2">No trainings found</td>
+      </tr>
     <% end %>
-  </ul>
-<% else %>
-  <p>No dates found</p>
-<% end %>
+  </tbody>
+</table>
