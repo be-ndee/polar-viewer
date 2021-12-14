@@ -1,0 +1,25 @@
+<h1>Trainings</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="w-100" scope="col">Time</th>
+      <th class="w-auto">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @times %>
+      <% @times.each do |time| %>
+        <tr>
+          <td><%= time %></td>
+          <td><a href="<%= training_details_path(@date, time) %>">details</a></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="2">No trainings found</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

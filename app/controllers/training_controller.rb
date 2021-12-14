@@ -32,7 +32,7 @@ class TrainingController < ApplicationController
     @dates = entries.select {|entry| self.is_valid_date(entry) }.sort
   end
 
-  def list_times
+  def list
     @date = params[:date]
 
     directory = self.get_date_directory(@date)
