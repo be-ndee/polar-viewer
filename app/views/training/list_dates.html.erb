@@ -8,17 +8,17 @@
     </tr>
   </thead>
   <tbody>
-    <% if @dates %>
+    <% if @dates.empty? %>
+      <tr>
+        <td colspan="2">No dates found</td>
+      </tr>
+    <% else %>
       <% @dates.each do |date| %>
         <tr>
           <td><%= date%></td>
           <td><a href="<%= training_list_path(date) %>">details</a></td>
         </tr>
       <% end %>
-    <% else %>
-      <tr>
-        <td colspan="2">No dates found</td>
-      </tr>
     <% end %>
   </tbody>
 </table>
