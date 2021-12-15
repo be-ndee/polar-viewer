@@ -28,8 +28,20 @@ class TrainingController < ApplicationController
       return false
     end
 
-    entries = Dir.entries(directory)
-    @dates = entries.select {|entry| self.is_valid_date(entry) }.sort
+    training_directories = Dir.glob("#{directory}/*/E/*/")
+
+    dates = Array.new
+
+    training_directories.each do |training_directory|
+      training_directory.slice! "#{directory}/"
+      date = training_directory[0..7]
+      time = training_directory[11..16]
+      if not dates.include? date
+        dates.append(date)
+      end
+    end
+
+    @dates = dates.sort
   end
 
   def list
