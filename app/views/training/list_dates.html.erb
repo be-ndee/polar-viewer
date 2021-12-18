@@ -15,8 +15,8 @@
     <% else %>
       <% @dates.each do |date| %>
         <tr>
-          <td><%= date%></td>
-          <td><a href="<%= training_list_path(date) %>">details</a></td>
+          <td><%= date.date %></td>
+          <td><a href="<%= training_list_path(date.date) %>">details</a></td>
         </tr>
       <% end %>
     <% end %>

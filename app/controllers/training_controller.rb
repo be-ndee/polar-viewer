@@ -30,18 +30,27 @@ class TrainingController < ApplicationController
 
     training_directories = Dir.glob("#{directory}/*/E/*/")
 
-    dates = Array.new
+    date_to_trainings = Hash.new
 
     training_directories.each do |training_directory|
       training_directory.slice! "#{directory}/"
+
       date = training_directory[0..7]
       time = training_directory[11..16]
-      if not dates.include? date
-        dates.append(date)
+
+      if not date_to_trainings.include?(date)
+        date_to_trainings[date] = Array.new
       end
+
+      date_to_trainings[date].append(time)
     end
 
-    @dates = dates.sort
+    dates = Array.new
+    date_to_trainings.each do |date, times|
+      dates.append DateModel.new(date, times)
+    end
+
+    @dates = dates.sort_by{ |date| [date.date]}
   end
 
   def list
