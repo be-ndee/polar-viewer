@@ -8,17 +8,17 @@
     </tr>
   </thead>
   <tbody>
-    <% if @times.empty? %>
+    <% if @trainings.exists? %>
+      <% @trainings.each do |training| %>
+        <tr>
+          <td><%= print_time training.date %></td>
+          <td><a href="<%= training_details_path training.id %>">details</a></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
         <td colspan="2">No trainings found</td>
       </tr>
-    <% else %>
-      <% @times.each do |time| %>
-        <tr>
-          <td><%= time %></td>
-          <td><a href="<%= training_details_path(@date, time) %>">details</a></td>
-        </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>

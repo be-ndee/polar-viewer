@@ -22,65 +22,23 @@ class TrainingController < ApplicationController
   end
 
   def list_dates
-    directory = self.get_directory()
-    if !Dir.exists?(directory)
-      render status: :not_found
-      return false
-    end
-
-    training_directories = Dir.glob("#{directory}/*/E/*/")
-
-    date_to_trainings = Hash.new
-
-    training_directories.each do |training_directory|
-      training_directory.slice! "#{directory}/"
-
-      date = training_directory[0..7]
-      time = training_directory[11..16]
-
-      if not date_to_trainings.include?(date)
-        date_to_trainings[date] = Array.new
-      end
-
-      date_to_trainings[date].append(time)
-    end
-
-    dates = Array.new
-    date_to_trainings.each do |date, times|
-      dates.append DateModel.new(date, times)
-    end
-
-    @dates = dates.sort_by{ |date| [date.date]}
+    @training_dates = Training.select('COUNT(id) AS total, *').group('DATE(date)').order('date DESC')
   end
 
   def list
-    @date = params[:date]
-
-    directory = self.get_date_directory(@date)
-    if !Dir.exists?(directory)
-      render status: :not_found
-      return false
-    end
-
-    entries = Dir.entries(directory)
-    @times = entries.select {|entry| self.is_valid_time(entry) }.sort
+    date = params[:date]
+    @trainings = Training.where('DATE(date) = ?', Date.parse(date)).order('date ASC')
   end
 
   def details
-    time = params[:time]
-    date = params[:date]
+    @training = Training.find(params[:id])
 
-    @training = TrainingModel.new(date, time)
-
-    date_is_valid = /^\d{8}$/ =~ @training.date
-    time_is_valid = /^\d{6}$/ =~ @training.time
-
-    if !date_is_valid || !time_is_valid
+    if !@training
       render status: :bad_request
       return false
     end
 
-    directory = self.get_time_directory(@training.date, @training.time)
+    directory = self.get_time_directory(@training.date.strftime('%Y%m%d'), @training.date.strftime('%H%M%S'))
 
     if !Dir.exists?(directory)
       render status: :not_found

@@ -3,22 +3,24 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th class="w-100" scope="col">Date</th>
+      <th class="w-auto" scope="col">Date</th>
+      <th class="w-100" scope="col">Trainings</th>
       <th class="w-auto">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
-    <% if @dates.empty? %>
+    <% if @training_dates.exists? %>
+      <% @training_dates.each do |training_date| %>
+        <tr>
+          <td><%= print_date training_date.date %></td>
+          <td><%= training_date.total %></td>
+          <td><a href="<%= training_list_path(print_date training_date.date) %>">details</a></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
         <td colspan="2">No dates found</td>
       </tr>
-    <% else %>
-      <% @dates.each do |date| %>
-        <tr>
-          <td><%= date.date %></td>
-          <td><a href="<%= training_list_path(date.date) %>">details</a></td>
-        </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
