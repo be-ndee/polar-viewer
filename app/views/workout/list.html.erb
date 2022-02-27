@@ -1,4 +1,4 @@
-<h1>Trainings</h1>
+<h1>workouts</h1>
 
 <table class="table table-hover">
   <thead>
@@ -8,16 +8,16 @@
     </tr>
   </thead>
   <tbody>
-    <% if @trainings.exists? %>
-      <% @trainings.each do |training| %>
+    <% if @workouts.exists? %>
+      <% @workouts.each do |workout| %>
         <tr>
-          <td><%= print_time training.date %></td>
-          <td><a href="<%= training_details_path training.id %>">details</a></td>
+          <td><%= print_time workout.date %></td>
+          <td><a href="<%= workout_details_path workout.id %>">details</a></td>
         </tr>
       <% end %>
     <% else %>
       <tr>
-        <td colspan="2">No trainings found</td>
+        <td colspan="2">No workouts found</td>
       </tr>
     <% end %>
   </tbody>

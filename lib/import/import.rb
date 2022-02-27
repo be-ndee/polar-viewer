@@ -34,8 +34,30 @@ def run_import
     date = training_directory[0..7]
     time = training_directory[11..16]
 
-    training = Training.new(date: "#{date} #{time}")
-    #training.save
+    directory = self.get_time_directory(date, time)
+
+    if Dir.exists?(directory)
+      parsed = PolarDataParser.parse_training_session(directory)
+      sport = parsed[:sport]
+
+      workout = Workout.new(date: "#{date} #{time}")
+      workout.save
+
+      type_names = sport.translation.map { |t| t.text.text if t.id.language == 'en' }
+      types = Type.where(name: type_names)
+
+      type_names.each do |type_name|
+        type = Type.where(name: type_name).first
+
+        if type == nil
+          type = Type.new(name: type_name)
+          type.save
+        end
+
+        workout_type = WorkoutType.new(workout: workout, type: type)
+        workout_type.save
+      end
+    end
   end
 end
 

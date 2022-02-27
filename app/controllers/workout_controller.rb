@@ -1,6 +1,6 @@
 require "#{File.dirname(__FILE__)}/../../lib/polar/lib/polar_data_parser"
 
-class TrainingController < ApplicationController
+class WorkoutController < ApplicationController
   def get_directory()
     return "#{File.dirname(__FILE__)}/../../synch/U/0"
   end
@@ -22,23 +22,23 @@ class TrainingController < ApplicationController
   end
 
   def list_dates
-    @training_dates = Training.select('COUNT(id) AS total, *').group('DATE(date)').order('date DESC')
+    @workout_dates = Workout.select('COUNT(id) AS total, *').group('DATE(date)').order('date DESC')
   end
 
   def list
     date = params[:date]
-    @trainings = Training.where('DATE(date) = ?', Date.parse(date)).order('date ASC')
+    @workouts = Workout.where('DATE(date) = ?', Date.parse(date)).order('date ASC')
   end
 
   def details
-    @training = Training.find(params[:id])
+    @workout = Workout.find(params[:id])
 
-    if !@training
+    if !@workout
       render status: :bad_request
       return false
     end
 
-    directory = self.get_time_directory(@training.date.strftime('%Y%m%d'), @training.date.strftime('%H%M%S'))
+    directory = self.get_time_directory(@workout.date.strftime('%Y%m%d'), @workout.date.strftime('%H%M%S'))
 
     if !Dir.exists?(directory)
       render status: :not_found

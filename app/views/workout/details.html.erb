@@ -40,46 +40,22 @@
     const paceData = [];
     const distanceData = [];
     for (const data of chartData) {
-          labels.push(data.time);
-          heartRateData.push(data.heart_rate);
-          paceData.push(data.pace);
-          distanceData.push(data.distance);
-        }
+      labels.push(data.time);
+      heartRateData.push(data.heart_rate);
+      paceData.push(data.pace);
+      distanceData.push(data.distance);
+    }
 
     drawChart('heart_rate_chart', 'Heart rate', labels, heartRateData, 'red');
     drawChart('pace_chart', 'Distance', labels, paceData, 'green');
     drawChart('distance_chart', 'Distance', labels, distanceData, 'blue');
 
     if (gpsTrackPositions.length > 0) {
-          var myIcon = L.icon({
-            iconUrl: '<%= image_path "marker-icon.png" %>',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            shadowUrl: '<%= image_path "marker-shadow.png" %>',
-            shadowSize: [41, 41],
-            shadowAnchor: [12, 41]
-          });
-          const map = L.map('map');
-          const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          });
-          tileLayer.addTo(map);
-
-          const gpsTrack = L.polyline(gpsTrackPositions, {
-            color: 'red',
-          });
-          let marker = L.marker([0, 0], {icon: myIcon});
-          gpsTrack.on('mouseover', e => {
-            marker.setLatLng(e.latlng);
-            if (!map.hasLayer(marker)) {
-              marker.addTo(map);
-            }
-          });
-          gpsTrack.on('mouseout', e => {
-            marker.removeFrom(map);
-          });
-          gpsTrack.addTo(map);
-          map.fitBounds(gpsTrack.getBounds());
+          addMap(
+            gpsTrackPositions,
+            '<%= image_path "marker-icon.png" %>',
+            '<%= image_path "marker-shadow.png" %>'
+          );
         }
   </script>
 <% else %>
