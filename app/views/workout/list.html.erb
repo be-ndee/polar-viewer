@@ -11,7 +11,7 @@
     <% if @workouts.exists? %>
       <% @workouts.each do |workout| %>
         <tr>
-          <td><%= print_time workout.date %></td>
+          <td><%= print_time workout.start %></td>
           <td><a href="<%= workout_details_path workout.id %>">details</a></td>
         </tr>
       <% end %>

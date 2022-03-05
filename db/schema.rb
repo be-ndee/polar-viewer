@@ -28,7 +28,12 @@ ActiveRecord::Schema.define(version: 2022_02_21_212022) do
   end
 
   create_table "workout_workouts", force: :cascade do |t|
-    t.datetime "date", null: false
+    t.string "directory"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "heart_rate_average"
+    t.integer "heart_rate_maximum"
+    t.integer "calories"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

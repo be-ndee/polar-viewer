@@ -1,33 +1,21 @@
 require "#{File.dirname(__FILE__)}/../../lib/polar/lib/polar_data_parser"
 
 class WorkoutController < ApplicationController
-  def get_directory()
+  def get_base_directory()
     return "#{File.dirname(__FILE__)}/../../synch/U/0"
   end
 
-  def get_date_directory(date)
-    return "#{self.get_directory()}/#{date}/E"
-  end
-
   def get_time_directory(date, time)
-    return "#{self.get_date_directory(date)}/#{time}"
-  end
-
-  def is_valid_date(date)
-    return /^\d{8}$/ =~ date
-  end
-
-  def is_valid_time(time)
-    return /^\d{6}$/ =~ time
+    return "#{self.get_base_d(date)}/#{time}"
   end
 
   def list_dates
-    @workout_dates = Workout.select('COUNT(id) AS total, *').group('DATE(date)').order('date DESC')
+    @workout_dates = Workout.select('COUNT(id) AS total, *').group('DATE(start)').order('start DESC')
   end
 
   def list
     date = params[:date]
-    @workouts = Workout.where('DATE(date) = ?', Date.parse(date)).order('date ASC')
+    @workouts = Workout.where('DATE(start) = ?', Date.parse(date)).order('start ASC')
   end
 
   def details
@@ -38,7 +26,7 @@ class WorkoutController < ApplicationController
       return false
     end
 
-    directory = self.get_time_directory(@workout.date.strftime('%Y%m%d'), @workout.date.strftime('%H%M%S'))
+    directory = "#{self.get_base_directory()}/#{@workout.directory}"
 
     if !Dir.exists?(directory)
       render status: :not_found
@@ -46,6 +34,8 @@ class WorkoutController < ApplicationController
     end
 
     parsed = PolarDataParser.parse_training_session(directory)
+
+    @parsed = parsed
 
     @sport = parsed[:sport]
     @training_session = parsed[:training_session]

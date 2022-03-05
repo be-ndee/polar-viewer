@@ -12,9 +12,9 @@
     <% if @workout_dates.exists? %>
       <% @workout_dates.each do |workout_date| %>
         <tr>
-          <td><%= print_date workout_date.date %></td>
+          <td><%= print_date workout_date.start %></td>
           <td><%= workout_date.total %></td>
-          <td><a href="<%= workout_list_path(print_date workout_date.date) %>">details</a></td>
+          <td><a href="<%= workout_list_path(print_date workout_date.start) %>">details</a></td>
         </tr>
       <% end %>
     <% else %>

@@ -2,24 +2,23 @@
   <h1>Workout details</h1>
 
   <p><%= @sport.translation.map { |t| t.text.text if t.id.language == 'en' }.compact.join('/') %></p>
-  <p><%= pb_sysdatetime_to_string @training_session.start, @training_session.start.time_zone_offset %></p>
-  <p><%= pb_sysdatetime_to_string @training_session.end, @training_session.end.time_zone_offset %></p>
-  <p><%= pb_duration_to_string @training_session.duration %></p>
+  <p><%= print_time @workout.start %></p>
+  <p><%= print_time @workout.end %></p>
+  <p><%= @workout.end - @workout.start %></p>
+  <p>calories <%= @workout.calories %></p>
 
   <h2>Heart rate</h2>
-  <% if @exercise_stats.heart_rate %>
-    <p>
-    &Oslash; <%= @exercise_stats.heart_rate.average %>;
-    max <%= @exercise_stats.heart_rate.maximum %>
-    </p>
-  <% end %>
+  <p>
+    &Oslash; <%= @workout.heart_rate_average %>;
+    max <%= @workout.heart_rate_maximum %>
+  </p>
   <canvas id="heart_rate_chart" width="800" height="300"></canvas>
 
   <h2>Pace</h2>
   <% if @exercise_stats.speed %>
     <p>
-    &Oslash; <%= print_pace @exercise_stats.speed.average %> km/h;
-    max <%= print_pace @exercise_stats.speed.maximum %> km/h
+      &Oslash; <%= print_pace @exercise_stats.speed.average %> km/h;
+      max <%= print_pace @exercise_stats.speed.maximum %> km/h
     </p>
   <% end %>
   <canvas id="pace_chart" width="800" height="300"></canvas>

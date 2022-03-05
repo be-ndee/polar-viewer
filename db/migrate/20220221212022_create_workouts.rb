@@ -7,7 +7,12 @@ class CreateWorkouts < ActiveRecord::Migration[6.1]
     end
 
     create_table :workout_workouts do |t|
-      t.datetime :date, null: false
+      t.string :directory
+      t.datetime :start
+      t.datetime :end
+      t.integer :heart_rate_average
+      t.integer :heart_rate_maximum
+      t.integer :calories
 
       t.timestamps
     end
