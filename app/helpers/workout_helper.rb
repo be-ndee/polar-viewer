@@ -8,6 +8,6 @@ module WorkoutHelper
   end
 
   def print_time(date)
-    date.strftime('%H:%I')
+    date.strftime('%H:%M')
   end
 end
