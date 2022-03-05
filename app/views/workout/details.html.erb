@@ -1,5 +1,5 @@
 <% if @sport %>
-  <h1>Training details</h1>
+  <h1>Workout details</h1>
 
   <p><%= @sport.translation.map { |t| t.text.text if t.id.language == 'en' }.compact.join('/') %></p>
   <p><%= pb_sysdatetime_to_string @training_session.start, @training_session.start.time_zone_offset %></p>
@@ -29,7 +29,7 @@
   <canvas id="distance_chart" width="800" height="300"></canvas>
   <div id="map" style="width: 600px; height: 600px;"></div>
 
-  <%= javascript_pack_tag "training" %>
+  <%= javascript_pack_tag "workout" %>
 
   <script type="text/javascript">
     var chartData = <%= @chart_data.to_json.html_safe %>;
