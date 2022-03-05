@@ -22,6 +22,7 @@ end
 
 def run_import
   directory = get_directory()
+
   if !Dir.exists?(directory)
     return false
   end
@@ -34,10 +35,10 @@ def run_import
     date = training_directory[0..7]
     time = training_directory[11..16]
 
-    directory = self.get_time_directory(date, time)
+    training_directory = self.get_time_directory(date, time)
 
-    if Dir.exists?(directory)
-      parsed = PolarDataParser.parse_training_session(directory)
+    if Dir.exists?(training_directory)
+      parsed = PolarDataParser.parse_training_session(training_directory)
       sport = parsed[:sport]
 
       workout = Workout.new(date: "#{date} #{time}")
