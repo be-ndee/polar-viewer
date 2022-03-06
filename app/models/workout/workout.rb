@@ -1,6 +1,7 @@
 class Workout < ApplicationRecord
   self.table_name = "workout_workouts"
 
-  has_many :workout_workout_types
+  belongs_to :sport, class_name: "Sport"
+  has_one :session, class_name: "Session"
 end
 

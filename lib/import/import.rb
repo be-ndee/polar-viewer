@@ -54,9 +54,11 @@ def run_import
 
     if Dir.exists?(full_path)
       parsed = PolarDataParser.parse_training_session(full_path)
-      sport = parsed[:sport]
       training_session = parsed[:training_session]
       exercise_stats = parsed[:exercise_stats]
+
+      start = pb_sysdatetime_to_datetime(training_session.start)
+
       heart_rate = nil
       if exercise_stats
         if exercise_stats.heart_rate
@@ -64,30 +66,33 @@ def run_import
         end
       end
 
+      sport_identifier = parsed[:sport].identifier.value
+
+      sport = Sport.where(identifier: sport_identifier).first
+      if sport == nil
+        sport = Sport.new(
+          identifier: sport_identifier
+        )
+        sport.save
+      end
+
       workout = Workout.new(
         directory: training_directory,
-        start: pb_sysdatetime_to_datetime(training_session.start),
-        end: pb_sysdatetime_to_datetime(training_session.end),
-        heart_rate_average: heart_rate ? heart_rate.average : nil,
-        heart_rate_maximum: heart_rate ? heart_rate.maximum : nil,
-        calories: training_session.calories
+        date: start,
+        sport_id: sport.id
       )
       workout.save
 
-      type_names = sport.translation.map { |t| t.text.text if t.id.language == 'en' }
-      types = Type.where(name: type_names)
-
-      type_names.each do |type_name|
-        type = Type.where(name: type_name).first
-
-        if type == nil
-          type = Type.new(name: type_name)
-          type.save
-        end
-
-        workout_type = WorkoutType.new(workout: workout, type: type)
-        workout_type.save
-      end
+      session = Session.new(
+        start: start,
+        end: pb_sysdatetime_to_datetime(training_session.end),
+        distance: training_session.distance,
+        calories: training_session.calories,
+        heart_rate_average: heart_rate ? heart_rate.average : nil,
+        heart_rate_maximum: heart_rate ? heart_rate.maximum : nil,
+        workout_id: workout.id
+      )
+      session.save
     end
   end
 end

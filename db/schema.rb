@@ -12,32 +12,34 @@
 
 ActiveRecord::Schema.define(version: 2022_02_21_212022) do
 
-  create_table "workout_types", force: :cascade do |t|
-    t.string "name"
+  create_table "workout_sessions", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.float "distance"
+    t.integer "calories"
+    t.integer "heart_rate_average"
+    t.integer "heart_rate_maximum"
+    t.integer "workout_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["workout_id"], name: "index_workout_sessions_on_workout_id"
   end
 
-  create_table "workout_workout_types", force: :cascade do |t|
-    t.integer "workout_id", null: false
-    t.integer "type_id", null: false
+  create_table "workout_sports", force: :cascade do |t|
+    t.integer "identifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["type_id"], name: "index_workout_workout_types_on_type_id"
-    t.index ["workout_id"], name: "index_workout_workout_types_on_workout_id"
   end
 
   create_table "workout_workouts", force: :cascade do |t|
     t.string "directory"
-    t.datetime "start"
-    t.datetime "end"
-    t.integer "heart_rate_average"
-    t.integer "heart_rate_maximum"
-    t.integer "calories"
+    t.datetime "date"
+    t.integer "sport_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["sport_id"], name: "index_workout_workouts_on_sport_id"
   end
 
-  add_foreign_key "workout_workout_types", "workout_types", column: "type_id"
-  add_foreign_key "workout_workout_types", "workout_workouts", column: "workout_id"
+  add_foreign_key "workout_sessions", "workout_workouts", column: "workout_id"
+  add_foreign_key "workout_workouts", "workout_sports", column: "sport_id"
 end

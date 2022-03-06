@@ -10,12 +10,12 @@ class WorkoutController < ApplicationController
   end
 
   def list_dates
-    @workout_dates = Workout.select('COUNT(id) AS total, *').group('DATE(start)').order('start DESC')
+    @workout_dates = Workout.select('COUNT(id) AS total, *').group('DATE(date)').order('date DESC')
   end
 
   def list
     date = params[:date]
-    @workouts = Workout.where('DATE(start) = ?', Date.parse(date)).order('start ASC')
+    @workouts = Workout.where('DATE(date) = ?', Date.parse(date)).order('date ASC')
   end
 
   def details
