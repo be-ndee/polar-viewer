@@ -73,7 +73,7 @@ class WorkoutController < ApplicationController
         time: timestamp.strftime("%H:%M:%S"),
         heart_rate: heart_rate,
         distance: distance,
-        pace: pace
+        pace: pace,
       })
 
       #r = []

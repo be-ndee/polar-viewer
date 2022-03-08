@@ -27,6 +27,32 @@ class CreateWorkouts < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    create_table :workout_samples_datas do |t|
+      t.integer :length
+      t.text :heart_rates
+      t.text :cadences
+      t.text :altitudes
+      t.text :speeds
+      t.text :distances
+
+      t.references :workout, null: false, foreign_key: {to_table: "workout_workouts"}
+
+      t.timestamps
+    end
+
+    create_table :workout_routes do |t|
+      t.integer :length
+      t.text :durations
+      t.text :latitudes
+      t.text :longitudes
+      t.text :gps_altitudes
+      t.text :satellite_amounts
+
+      t.references :workout, null: false, foreign_key: {to_table: "workout_workouts"}
+
+      t.timestamps
+    end
   end
 end
 

@@ -93,6 +93,32 @@ def run_import
         workout_id: workout.id
       )
       session.save
+
+      samples = parsed[:samples]
+
+      samples_data = SamplesData.new(
+        length: samples.speed_samples.count,
+        heart_rates: samples.heart_rate_samples.to_json,
+        cadences: samples.cadence_samples.to_json,
+        altitudes: samples.altitude_samples.to_json,
+        speeds: samples.speed_samples.to_json,
+        distances: samples.distance_samples.to_json,
+        workout_id: workout.id
+      )
+      samples_data.save
+
+      route_samples = parsed[:route_samples]
+
+      route = Route.new(
+        length: route_samples.latitude.count,
+        durations: route_samples.duration.to_json,
+        latitudes: route_samples.latitude.to_json,
+        longitudes: route_samples.longitude.to_json,
+        gps_altitudes: route_samples.gps_altitude.to_json,
+        satellite_amounts: route_samples.satellite_amount.to_json,
+        workout_id: workout.id
+      )
+      route.save
     end
   end
 end

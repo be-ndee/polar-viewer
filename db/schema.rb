@@ -12,6 +12,32 @@
 
 ActiveRecord::Schema.define(version: 2022_02_21_212022) do
 
+  create_table "workout_routes", force: :cascade do |t|
+    t.integer "length"
+    t.text "durations"
+    t.text "latitudes"
+    t.text "longitudes"
+    t.text "gps_altitudes"
+    t.text "satellite_amounts"
+    t.integer "workout_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["workout_id"], name: "index_workout_routes_on_workout_id"
+  end
+
+  create_table "workout_samples_datas", force: :cascade do |t|
+    t.integer "length"
+    t.text "heart_rates"
+    t.text "cadences"
+    t.text "altitudes"
+    t.text "speeds"
+    t.text "distances"
+    t.integer "workout_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["workout_id"], name: "index_workout_samples_datas_on_workout_id"
+  end
+
   create_table "workout_sessions", force: :cascade do |t|
     t.datetime "start"
     t.datetime "end"
@@ -40,6 +66,8 @@ ActiveRecord::Schema.define(version: 2022_02_21_212022) do
     t.index ["sport_id"], name: "index_workout_workouts_on_sport_id"
   end
 
+  add_foreign_key "workout_routes", "workout_workouts", column: "workout_id"
+  add_foreign_key "workout_samples_datas", "workout_workouts", column: "workout_id"
   add_foreign_key "workout_sessions", "workout_workouts", column: "workout_id"
   add_foreign_key "workout_workouts", "workout_sports", column: "sport_id"
 end
