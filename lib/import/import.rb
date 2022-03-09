@@ -97,7 +97,11 @@ def run_import
       samples = parsed[:samples]
 
       samples_data = SamplesData.new(
-        length: samples.speed_samples.count,
+        count: samples.speed_samples.count,
+        interval_hours: samples.recording_interval.hours,
+        interval_minutes: samples.recording_interval.minutes,
+        interval_seconds: samples.recording_interval.seconds,
+        interval_millis: samples.recording_interval.millis.to_f,
         heart_rates: samples.heart_rate_samples.to_json,
         cadences: samples.cadence_samples.to_json,
         altitudes: samples.altitude_samples.to_json,
@@ -110,7 +114,7 @@ def run_import
       route_samples = parsed[:route_samples]
 
       route = Route.new(
-        length: route_samples.latitude.count,
+        count: route_samples.latitude.count,
         durations: route_samples.duration.to_json,
         latitudes: route_samples.latitude.to_json,
         longitudes: route_samples.longitude.to_json,

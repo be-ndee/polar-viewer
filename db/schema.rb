@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2022_02_21_212022) do
 
   create_table "workout_routes", force: :cascade do |t|
-    t.integer "length"
+    t.integer "count"
     t.text "durations"
     t.text "latitudes"
     t.text "longitudes"
@@ -26,7 +26,11 @@ ActiveRecord::Schema.define(version: 2022_02_21_212022) do
   end
 
   create_table "workout_samples_datas", force: :cascade do |t|
-    t.integer "length"
+    t.integer "count"
+    t.integer "interval_hours"
+    t.integer "interval_minutes"
+    t.integer "interval_seconds"
+    t.float "interval_millis"
     t.text "heart_rates"
     t.text "cadences"
     t.text "altitudes"

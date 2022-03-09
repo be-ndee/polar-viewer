@@ -29,7 +29,11 @@ class CreateWorkouts < ActiveRecord::Migration[6.1]
     end
 
     create_table :workout_samples_datas do |t|
-      t.integer :length
+      t.integer :count
+      t.integer :interval_hours
+      t.integer :interval_minutes
+      t.integer :interval_seconds
+      t.float :interval_millis
       t.text :heart_rates
       t.text :cadences
       t.text :altitudes
@@ -42,7 +46,7 @@ class CreateWorkouts < ActiveRecord::Migration[6.1]
     end
 
     create_table :workout_routes do |t|
-      t.integer :length
+      t.integer :count
       t.text :durations
       t.text :latitudes
       t.text :longitudes

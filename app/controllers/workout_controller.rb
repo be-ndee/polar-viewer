@@ -40,32 +40,38 @@ class WorkoutController < ApplicationController
     @sport = parsed[:sport]
     @training_session = parsed[:training_session]
     @sensors = parsed[:sensors]
-    @samples = parsed[:samples]
     @route_samples = parsed[:route_samples]
     @swimming_samples = parsed[:swimming_samples]
     @laps = parsed[:exercise_laps]
     @exercise_stats = parsed[:exercise_stats]
 
-    recording_interval = @samples.recording_interval.hours * 3600 + @samples.recording_interval.minutes * 60 + @samples.recording_interval.seconds + (@samples.recording_interval.millis.to_f / 1000)
-    samples_count = @samples.speed_samples.count
+    recording_interval = @workout.samples_data.interval_hours * 3600 +
+      @workout.samples_data.interval_minutes * 60 +
+      @workout.samples_data.interval_seconds +
+      (@workout.samples_data.interval_millis / 1000)
+
+    heart_rates = JSON.parse(@workout.samples_data.heart_rates)
+    distances = JSON.parse(@workout.samples_data.distances)
+    speeds = JSON.parse(@workout.samples_data.speeds)
+
     chart_data = Array.new
     timestamp = Time.at(0).utc
-    for i in 0..samples_count-1
+    for i in 0..@workout.samples_data.count-1
       timestamp += recording_interval
 
       heart_rate = 0
       distance = 0
       pace = 0
 
-      if @samples.heart_rate_samples[i]
-        heart_rate = @samples.heart_rate_samples[i]
+      if heart_rates[i]
+        heart_rate = heart_rates[i]
       end
-      if @samples.distance_samples[i]
-        distance = "%7.1f" % @samples.distance_samples[i]
+      if distances[i]
+        distance = "%7.1f" % distances[i]
       end
-      if @samples.speed_samples[i]
-        if @samples.speed_samples[i] > 0
-          pace = @samples.speed_samples[i]
+      if speeds[i]
+        if speeds[i] > 0
+          pace = speeds[i]
         end
       end
 
@@ -93,12 +99,13 @@ class WorkoutController < ApplicationController
 
     gps_track_positions = Array.new
 
-    route_samples_count = @route_samples.latitude.count
-    if route_samples_count > 0
-      for i in 0..route_samples_count-1
+    if @workout.route.count > 0
+      latitudes = JSON.parse(@workout.route.latitudes)
+      longitudes = JSON.parse(@workout.route.longitudes)
+      for i in 0..@workout.route.count-1
         gps_track_positions.append([
-          @route_samples.latitude[i],
-          @route_samples.longitude[i]
+          latitudes[i],
+          longitudes[i]
         ])
       end
     end
