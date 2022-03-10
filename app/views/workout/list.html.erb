@@ -3,16 +3,24 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th class="w-100" scope="col">Time</th>
-      <th class="w-auto">&nbsp;</th>
+      <th class="w-auto text-nowrap" scope="col">From</th>
+      <th class="w-auto text-nowrap" scope="col">To</th>
+      <th class="w-auto text-nowrap" scope="col">Duration</th>
+      <th class="w-auto text-nowrap" scope="col">Calories</th>
+      <th class="w-auto text-nowrap" scope="col">Heart rate &Oslash; / max</th>
+      <th class="w-100">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <% if @workouts.exists? %>
       <% @workouts.each do |workout| %>
         <tr>
-          <td><%= print_time workout.date %></td>
-          <td><a href="<%= workout_details_path workout.id %>">details</a></td>
+          <td><%= print_time workout.session.start %></td>
+          <td><%= print_time workout.session.end %></td>
+          <td><%= workout.session.end - workout.session.start %></td>
+          <td><%= workout.session.calories %></td>
+          <td><%= workout.session.heart_rate_average %> / <%= workout.session.heart_rate_maximum %></td>
+          <td class="text-end"><a href="<%= workout_details_path workout.id %>">details</a></td>
         </tr>
       <% end %>
     <% else %>
