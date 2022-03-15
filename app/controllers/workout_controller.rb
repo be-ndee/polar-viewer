@@ -9,13 +9,14 @@ class WorkoutController < ApplicationController
     return "#{self.get_base_d(date)}/#{time}"
   end
 
-  def list_dates
-    @workout_dates = Workout.select('COUNT(id) AS total, *').group('DATE(date)').order('date DESC')
-  end
-
   def list
-    date = params[:date]
-    @workouts = Workout.where('DATE(date) = ?', Date.parse(date)).order('date ASC')
+    year = params[:year]
+    month = params[:month]
+
+    first_day_of_month = Date.parse("#{year}-#{month}-01").at_beginning_of_day
+    last_day_of_month = Date.parse("#{year}-#{month}-01").at_end_of_month.at_end_of_day
+
+    @workouts = Workout.where("date >= ?", first_day_of_month).where("date <= ?", last_day_of_month).order('date ASC')
   end
 
   def details
