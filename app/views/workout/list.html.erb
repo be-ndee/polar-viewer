@@ -3,6 +3,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th class="w-auto text-nowrap" scope="col">Sport</th>
       <th class="w-auto text-nowrap" scope="col">From</th>
       <th class="w-auto text-nowrap" scope="col">To</th>
       <th class="w-auto text-nowrap" scope="col">Duration</th>
@@ -15,11 +16,12 @@
     <% if @workouts.exists? %>
       <% @workouts.each do |workout| %>
         <tr>
-          <td><%= print_time workout.session.start %></td>
-          <td><%= print_time workout.session.end %></td>
-          <td><%= print_duration (workout.session.end - workout.session.start) %></td>
-          <td><%= workout.session.calories %></td>
-          <td><%= workout.session.heart_rate_average %> / <%= workout.session.heart_rate_maximum %></td>
+          <td class="text-nowrap"><%= workout.sport.get_name 'en' %></td>
+          <td class="text-nowrap"><%= print_time workout.session.start %></td>
+          <td class="text-nowrap"><%= print_time workout.session.end %></td>
+          <td class="text-nowrap"><%= print_duration (workout.session.end - workout.session.start) %></td>
+          <td class="text-nowrap"><%= workout.session.calories %></td>
+          <td class="text-nowrap"><%= workout.session.heart_rate_average %> / <%= workout.session.heart_rate_maximum %></td>
           <td class="text-end"><a href="<%= workout_details_path workout.id %>">details</a></td>
         </tr>
       <% end %>

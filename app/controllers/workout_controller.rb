@@ -37,7 +37,6 @@ class WorkoutController < ApplicationController
 
     @parsed = parsed
 
-    @sport = parsed[:sport]
     @training_session = parsed[:training_session]
     @sensors = parsed[:sensors]
     @route_samples = parsed[:route_samples]

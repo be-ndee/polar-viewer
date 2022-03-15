@@ -70,8 +70,14 @@ def run_import
 
       sport = Sport.where(identifier: sport_identifier).first
       if sport == nil
+        translations = Hash.new
+        parsed[:sport].translation.each do |translation|
+          translations[translation.id.language] = translation.text.text
+        end
+
         sport = Sport.new(
-          identifier: sport_identifier
+          identifier: sport_identifier,
+          translations: translations.to_json
         )
         sport.save
       end

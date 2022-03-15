@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_02_21_212022) do
 
   create_table "workout_sports", force: :cascade do |t|
     t.integer "identifier"
+    t.text "translations"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

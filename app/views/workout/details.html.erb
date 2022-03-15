@@ -1,7 +1,7 @@
-<% if @sport %>
+<% if @workout %>
   <h1>Workout details</h1>
 
-  <p><%= @sport.translation.map { |t| t.text.text if t.id.language == 'en' }.compact.join('/') %></p>
+  <p><%= @workout.sport.get_name 'en' %></p>
   <p><%= print_time @workout.session.start %></p>
   <p><%= print_time @workout.session.end %></p>
   <p><%= print_duration(@workout.session.end - @workout.session.start) %></p>

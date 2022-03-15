@@ -2,6 +2,7 @@ class CreateWorkouts < ActiveRecord::Migration[6.1]
   def change
     create_table :workout_sports do |t|
       t.integer :identifier
+      t.text :translations
 
       t.timestamps
     end
