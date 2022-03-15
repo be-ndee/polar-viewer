@@ -4,7 +4,7 @@
   <p><%= @sport.translation.map { |t| t.text.text if t.id.language == 'en' }.compact.join('/') %></p>
   <p><%= print_time @workout.session.start %></p>
   <p><%= print_time @workout.session.end %></p>
-  <p><%= @workout.session.end - @workout.session.start %></p>
+  <p><%= print_duration(@workout.session.end - @workout.session.start) %></p>
   <p>calories <%= @workout.session.calories %></p>
 
   <h2>Heart rate</h2>

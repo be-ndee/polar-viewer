@@ -11,6 +11,14 @@ module WorkoutHelper
     date.strftime('%H:%M')
   end
 
+  def print_duration(seconds)
+    hours = (seconds / (60 * 60)).floor()
+    seconds = (seconds - hours * 3600).floor()
+    minutes = (seconds / 60).floor()
+    seconds = (seconds - minutes * 60).floor()
+    return "%d:%02d:%02d h" % [hours, minutes, seconds]
+  end
+
   def get_maximum_heart_rate(parsed)
     exercise_stats = parsed[:exercise_stats]
     if exercise_stats
