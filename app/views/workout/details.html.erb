@@ -4,7 +4,7 @@
   <p><%= @workout.sport.get_name 'en' %></p>
   <p><%= print_time @workout.session.start %></p>
   <p><%= print_time @workout.session.end %></p>
-  <p><%= print_duration(@workout.session.end - @workout.session.start) %></p>
+  <p><%= print_duration(@workout.session.get_duration) %></p>
   <p>calories <%= @workout.session.calories %></p>
 
   <h2>Heart rate</h2>

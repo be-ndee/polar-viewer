@@ -10,5 +10,28 @@ class Sport < ApplicationRecord
     end
     return nil
   end
+
+  def get_fontawesome_icon_class
+    name = self.get_name("en")
+    if name == "Running"
+      return "fa-solid fa-person-running"
+    end
+    if name == "Swimming"
+      return "fa-solid fa-person-swimming"
+    end
+    if name == "Yoga"
+      return "fa-solid fa-spa"
+    end
+    if name == "Other indoor"
+      return "fa-solid fa-dumbbell"
+    end
+    #if name == "TODO"
+      #return "fa-solid fa-dumbbell"
+    #end
+    #if name == "TODO"
+      #return "fa-solid fa-person-biking"
+    #end
+    return nil
+  end
 end
 
