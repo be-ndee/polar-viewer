@@ -50,7 +50,9 @@
 <div class="row align-items-md-stretch">
   <div class="col-md-6">
     <div class="h-100 p-4 bg-light rounded-3">
-      TODO last 7 days
+      <% for day in @days_last_week %>
+        <%= day[:date] %>: <%= day[:workouts].length %><br />
+      <% end %>
     </div>
   </div>
 
