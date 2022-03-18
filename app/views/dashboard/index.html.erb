@@ -1,40 +1,61 @@
 <%= javascript_pack_tag "dashboard" %>
 
-<div class="p-5 mb-4 bg-light rounded-3">
+<style>
+.last-workout .stats-row .stats-icon {
+  display: inline-block;
+  text-align: center;
+  width: 40px;
+}
+</style>
+<div class="p-4 mb-4 bg-light rounded-3 last-workout">
   <div class="row">
-    <div class="col-6 fs-1 d-flex justify-content-center align-items-center">
-      <i class="<%= @last_workout.sport.get_fontawesome_icon_class %>"></i>
+    <div class="col-12">
+      <h2>
+        <i class="<%= @last_workout.sport.get_fontawesome_icon_class %>"></i> <%= @last_workout.sport.get_name 'en' %>
+      </h2>
     </div>
-    <div class="col-6">
-      <div class="row">
-        <div class="col-2 text-center"><i class="fa-solid fa-stopwatch"></i></div>
-        <div class="col-10"><%= print_duration(@last_workout.session.get_duration) %></div>
+  </div>
+  <div class="row stats-row">
+    <div class="col-12">
+      <div class="stats-icon"><i class="fa-solid fa-stopwatch"></i></div>
+      <%= print_duration(@last_workout.session.get_duration) %>
+    </div>
+  </div>
+  <div class="row stats-row">
+    <div class="col-12">
+      <div class="stats-icon">
+        <i class="fa-solid fa-ruler-horizontal"></i>
       </div>
-      <div class="row">
-        <div class="col-2 text-center"><i class="fa-solid fa-ruler-horizontal"></i></div>
-        <div class="col-10"><%= @last_workout.session.distance %></div>
+      <%= @last_workout.session.distance %>m
+    </div>
+  </div>
+  <div class="row stats-row">
+    <div class="col-12">
+      <div class="stats-icon">
+        <i class="fa-solid fa-heart-pulse"></i>
       </div>
-      <div class="row">
-        <div class="col-2 text-center"><i class="fa-solid fa-heart-pulse"></i></div>
-        <div class="col-10"><%= @last_workout.session.heart_rate_average %></div>
+      <%= @last_workout.session.heart_rate_average %>
+    </div>
+  </div>
+  <div class="row stats-row">
+    <div class="col-12">
+      <div class="stats-icon">
+        <i class="fa-solid fa-fire-flame-curved"></i>
       </div>
-      <div class="row">
-        <div class="col-2 text-center"><i class="fa-solid fa-fire-flame-curved"></i></div>
-        <div class="col-10"><%= @last_workout.session.calories %></div>
-      </div>
+      <%= @last_workout.session.calories %>
     </div>
   </div>
 </div>
 
 <div class="row align-items-md-stretch">
   <div class="col-md-6">
-    <div class="h-100 p-5 bg-light rounded-3">
+    <div class="h-100 p-4 bg-light rounded-3">
       TODO last 7 days
     </div>
   </div>
 
   <div class="col-md-6">
-    <div class="h-100 p-5 bg-light rounded-3">
+    <div class="h-100 p-4 bg-light rounded-3">
       TODO current month
     </div>
   </div>
