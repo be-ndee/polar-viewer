@@ -51,7 +51,13 @@
   <div class="col-md-6">
     <div class="h-100 p-4 bg-light rounded-3">
       <% for day in @days_last_week %>
-        <%= day[:date] %>: <%= day[:workouts].length %><br />
+        <%= day[:date] %>:
+        <% if day[:workouts].length == 0 %>
+          -
+        <% else %>
+          <%= raw(day[:workouts].map {|workout| "<a href=\"#{workout_details_path workout}\">#{workout.sport.get_name "en"}</a>" } * ",") %>
+        <% end %>
+        <br/>
       <% end %>
     </div>
   </div>
