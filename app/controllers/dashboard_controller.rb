@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
       }
 
       for workout in workouts_last_week
-        if workout.session.start.at_beginning_of_day == date.at_beginning_of_day
+        if workout.date.to_date == date
           day[:workouts].append(workout)
         end
       end

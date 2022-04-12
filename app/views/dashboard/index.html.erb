@@ -10,9 +10,19 @@
 <div class="p-4 mb-4 bg-light rounded-3 last-workout">
   <div class="row">
     <div class="col-12">
-      <h2>
-        <i class="<%= @last_workout.sport.get_fontawesome_icon_class %>"></i> <%= @last_workout.sport.get_name 'en' %>
-      </h2>
+      <h2>Last workout</h2>
+    </div>
+  </div>
+  <div class="row stats-row">
+    <div class="col-12">
+      <div class="stats-icon"><i class="<%= @last_workout.sport.get_fontawesome_icon_class %>"></i></div>
+      <%= @last_workout.sport.get_name 'en' %>
+    </div>
+  </div>
+  <div class="row stats-row">
+    <div class="col-12">
+      <div class="stats-icon"><i class="fa-solid fa-calendar"></i></div>
+      <%= @last_workout.date.to_date %>
     </div>
   </div>
   <div class="row stats-row">
@@ -55,7 +65,7 @@
         <% if day[:workouts].length == 0 %>
           -
         <% else %>
-          <%= raw(day[:workouts].map {|workout| "<a href=\"#{workout_details_path workout}\">#{workout.sport.get_name "en"}</a>" } * ",") %>
+          <%= raw(day[:workouts].map {|workout| "<a href=\"#{workout_details_path workout}\">#{workout.sport.get_name "en"}</a>" } * ", ") %>
         <% end %>
         <br/>
       <% end %>
