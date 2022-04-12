@@ -25,10 +25,10 @@ class WorkoutController < ApplicationController
       @month = Integer(@month)
     end
 
-    @first_day_of_month = Date.parse("#{@year}-#{@month}-01")
-    @last_day_of_month = Date.parse("#{@year}-#{@month}-01").at_end_of_month
+    @first_date_of_month = Date.parse("#{@year}-#{@month}-01")
+    @last_date_of_month = Date.parse("#{@year}-#{@month}-01").at_end_of_month
 
-    @workouts = Workout.where("date >= ?", @first_day_of_month).where("date <= ?", @last_day_of_month).order("date ASC")
+    @workouts = Workout.where("date >= ?", @first_date_of_month).where("date <= ?", @last_date_of_month).order("date ASC")
   end
 
   def details
