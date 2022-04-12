@@ -10,13 +10,25 @@ class WorkoutController < ApplicationController
   end
 
   def list
-    year = params[:year]
-    month = params[:month]
+    @year = params[:year]
+    @month = params[:month]
 
-    first_day_of_month = Date.parse("#{year}-#{month}-01").at_beginning_of_day
-    last_day_of_month = Date.parse("#{year}-#{month}-01").at_end_of_month.at_end_of_day
+    if not @year
+      @year = Date.today.year
+    else
+      @year = Integer(@year)
+    end
 
-    @workouts = Workout.where("date >= ?", first_day_of_month).where("date <= ?", last_day_of_month).order("date ASC")
+    if not @month
+      @month = Date.today.month
+    else
+      @month = Integer(@month)
+    end
+
+    @first_day_of_month = Date.parse("#{@year}-#{@month}-01")
+    @last_day_of_month = Date.parse("#{@year}-#{@month}-01").at_end_of_month
+
+    @workouts = Workout.where("date >= ?", @first_day_of_month).where("date <= ?", @last_day_of_month).order("date ASC")
   end
 
   def details
