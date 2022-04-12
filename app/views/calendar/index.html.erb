@@ -1,11 +1,50 @@
-<h1>Calendar</h1>
+<h1>Calendar <%= @first_month_date.strftime('%m/%Y') %></h1>
 
 <%= javascript_pack_tag 'calendar' %>
 
-<a href="<%= workout_list_path 2021,10 %>">10/2021</a><br/>
-<a href="<%= workout_list_path 2021,11 %>">11/2021</a><br/>
-<a href="<%= workout_list_path 2021,12 %>">12/2021</a><br/>
-<a href="<%= workout_list_path 2022,1 %>">01/2022</a><br/>
-<a href="<%= workout_list_path 2022,2 %>">02/2022</a><br/>
-<a href="<%= workout_list_path 2022,3 %>">03/2022</a>
+<a href="<%= calendar_path(@previous_month_date.year, @previous_month_date.month) %>">previous</a><br/>
+<a href="<%= calendar_path(@next_month_date.year, @next_month_date.month) %>">next</a><br/>
 
+<%= @year %><br/>
+<%= @month %><br/>
+<%= @day %><br/>
+
+<style>
+.calendar {
+  display: flex;
+  flex-direction: column;
+}
+
+.week {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 0px;
+}
+
+.day {
+  flex: 1 1 0px;
+  text-align: center;
+  padding: 4px;
+  color: darkgrey;
+}
+
+.day:hover {
+  background: lightgrey;
+}
+
+.day.current-month {
+  color: black;
+}
+</style>
+
+<div class="calendar">
+  <% for week in @weeks %>
+    <div class="week">
+      <% for day in week %>
+        <div class="day <% if @first_month_date.year == day.year && @first_month_date.month == day.month %>current-month<% end %>">
+          <%= day.day %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
