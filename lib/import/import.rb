@@ -36,6 +36,12 @@ def pb_sysdatetime_to_datetime(sysdatetime)
 end
 
 def run_import
+  Route.delete_all
+  SamplesData.delete_all
+  Session.delete_all
+  Workout.delete_all
+  Sport.delete_all
+
   directory = get_directory()
 
   if !Dir.exists?(directory)
