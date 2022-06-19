@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../lib/polar/lib/polar_data_parser"
+require "#{File.dirname(File.expand_path $0)}/../../lib/polar/lib/polar_data_parser"
 
 def get_directory()
-  return "#{File.dirname(__FILE__)}/../../synch/U/0"
+  return "#{File.dirname(File.expand_path $0)}/../../synch/U/0"
 end
 
 def get_date_directory(date)
@@ -139,3 +139,4 @@ def run_import
   end
 end
 
+run_import()
