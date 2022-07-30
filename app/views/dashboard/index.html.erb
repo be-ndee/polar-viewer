@@ -1,5 +1,12 @@
 <%= javascript_pack_tag "dashboard" %>
 
+<% if Current.user %>
+  Logged in as: <%= Current.user.username %><br>
+  <%= button_to "Sign Out", logout_path,  method: :delete %>
+<% else %>
+  <%= link_to "Sign In", sign_in_path %>
+<% end %>
+
 <style>
 .last-workout .stats-row .stats-icon {
   display: inline-block;

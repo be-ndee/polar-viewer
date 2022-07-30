@@ -60,4 +60,5 @@ gem 'google-protobuf'
 gem 'libusb'
 gem 'rubyserial'
 gem 'nokogiri'
+gem 'bcrypt'
 
