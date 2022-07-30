@@ -28,6 +28,9 @@ class WorkoutController < ApplicationController
     @first_date_of_month = Date.parse("#{@year}-#{@month}-01")
     @last_date_of_month = Date.parse("#{@year}-#{@month}-01").at_end_of_month
 
+    @previous_month_date = @first_date_of_month - 1.month
+    @next_month_date = @first_date_of_month + 1.month
+
     @workouts = Workout.where("date >= ?", @first_date_of_month).where("date <= ?", @last_date_of_month).order("date ASC")
   end
 

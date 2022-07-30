@@ -1,5 +1,8 @@
 <h1>Workouts <%= @first_date_of_month.strftime('%m/%Y') %></h1>
 
+<a href="<%= workout_list_path(@previous_month_date.year, @previous_month_date.month) %>">previous</a><br/>
+<a href="<%= workout_list_path(@next_month_date.year, @next_month_date.month) %>">next</a><br/>
+
 <table class="table table-hover">
   <thead>
     <tr>
