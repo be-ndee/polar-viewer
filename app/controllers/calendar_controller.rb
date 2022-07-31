@@ -1,4 +1,6 @@
 class CalendarController < ApplicationController
+  before_action :redirect_if_not_authenticated
+
   def index
     @year = params[:year]
     @month = params[:month]

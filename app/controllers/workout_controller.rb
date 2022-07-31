@@ -1,6 +1,8 @@
 require "#{File.dirname(__FILE__)}/../../lib/polar/lib/polar_data_parser"
 
 class WorkoutController < ApplicationController
+  before_action :redirect_if_not_authenticated
+
   def get_base_directory()
     return "#{File.dirname(__FILE__)}/../../synch/U/0"
   end

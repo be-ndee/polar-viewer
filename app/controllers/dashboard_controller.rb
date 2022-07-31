@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  before_action :redirect_if_not_authenticated
+
   def index
     a_week_ago = Date.today - 6
 
